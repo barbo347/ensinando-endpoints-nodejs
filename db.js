@@ -7,7 +7,9 @@ const db = () => {
 
   return {
     findById: id => {
-      const user = database.find(user => user?.id === id)
+      console.log(id)
+      const user = database.find(user => user?.id === parseInt(id))
+      console.log({ user })
       return user !== 0 ? user : { message: 'informacao nao encontrada' }
     },
     findAll: () => database,
@@ -20,14 +22,14 @@ const db = () => {
       return newUser
     },
     updateById: (id, user) => {
-      const { name, email, password } = user
+      const { name = '', email = '', password = '' } = user
       const indice = getIndice(id)
       if (indice >= 0) {
         const actualUser = database[indice]
 
-        actualUser.name = name ? name : actualUser.name
-        actualUser.email = email ? email : actualUser.email
-        actualUser.password = password ? password : actualUser.password
+        actualUser.name = name !== '' ? name : actualUser.name
+        actualUser.email = email !== '' ? email : actualUser.email
+        actualUser.password = password !== '' ? password : actualUser.password
 
         database[indice] = actualUser
 
