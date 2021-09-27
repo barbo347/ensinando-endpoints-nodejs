@@ -1,15 +1,18 @@
 const express = require("express")
+const cors = require("cors")
 const app = express()
 const db = require("./db")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 app.get("/usuario", (request, response) => {
     return response.json({ users: db.findAll() })
 })
 
 app.post("/usuario", (request, response) => {
+    console.log(request.body)
     const { name, email, password } = request.body
     return response.json(db.create({ name, email, password }))
 })
