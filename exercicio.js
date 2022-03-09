@@ -1,3 +1,3 @@
-const db = require('./db')
+/* const db = require('./db')
 const items = db.findAll()
-console.log(items)
+console.log(items) */
