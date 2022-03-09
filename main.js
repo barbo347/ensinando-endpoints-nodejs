@@ -5,15 +5,26 @@ const db = require("./db")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
+ 
+/* const itens = db.findAll(
 app.get("/usuario",(request, response) => {
   response.json({name: "aleji", email:"aleji@gmail.com"})
-})
-
+}))
+console.log(itens) */
+    const items = db.findAll()
+    app.get("/usuario",(request, response) => {
+      response.json({nome :"alguem", email:"alguém@gmail.com", password : 1234})
+    })
+    const id = 1
+    const item = db.findById(id)
+    app.post("/usuario",(request, response1) => {
+      response1.findAll({nome :"alguem1", email:"alguém1@gmail.com", password : 1234})
+      console.log(item)
+    })
 // Exercicio de CRUD
 // Utilizando as 5 funções encontradas em db, crie 5 endpoints para o recurso "usuario".
 // (Leia em README para saber mais sobre as funções)
-/* 
+/*   
     O recurso usuario deve ter as seguintes propriedades com seus respectivos tipos:
     { 
         name: String, 
