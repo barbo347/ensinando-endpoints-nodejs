@@ -1,26 +1,43 @@
 const { response } = require("express")
 const express = require("express")
+const { findAll } = require("./db")
 const app = express()
 const db = require("./db")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
- 
-/* const itens = db.findAll(
+
+
 app.get("/usuario",(request, response) => {
-  response.json({name: "aleji", email:"aleji@gmail.com"})
-}))
-console.log(itens) */
-    const items = db.findAll()
-    app.get("/usuario",(request, response) => {
-      response.json({nome :"alguem", email:"alguém@gmail.com", password : 1234})
-    })
-    const id = 1
-    const item = db.findById(id)
-    app.post("/usuario",(request, response1) => {
-      response1.findAll({nome :"alguem1", email:"alguém1@gmail.com", password : 1234})
-      console.log(item)
-    })
+  response.json({users : db.findAll()})
+})
+
+app.post("/usuario", (request, response) => {
+  console.log( request.body)
+  const {name, email, password} = request.body
+  return response.json(db.create({name, email, password}))
+})
+
+app.get("/usuario/:id", (request, response) => {
+
+  return response.json({user: db.findById(request.params.id)})
+})
+app.delete("/usuario/:id", (request, response)=>{
+  return response.json({user : db.remove(request.params.id)})
+})
+
+
+
+
+
+
+app.get("/usuario", (request, response1) => {
+  response1.findAll()
+})
+
+
+
+
 // Exercicio de CRUD
 // Utilizando as 5 funções encontradas em db, crie 5 endpoints para o recurso "usuario".
 // (Leia em README para saber mais sobre as funções)
