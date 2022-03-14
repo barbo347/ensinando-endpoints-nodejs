@@ -23,9 +23,10 @@ app.delete("/usuario/:id", (request, response) => {
     return response.json({ users: db.remove(request.params.id) })
 })
 
-app.put("usuario/:id", (request, response) => {
+app.put("/usuario/:id", (request, response) => {
+    const { id } = request.params
     const { name, email, password } = request.body
-    return response.json(db.updateById((request.params.id), { name, email, password })
+    return response.json(db.updateById(id, { name, email, password })
     )
 })
 
