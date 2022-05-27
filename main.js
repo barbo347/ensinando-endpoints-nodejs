@@ -23,6 +23,13 @@ app.post("/pokemon", (request, response) => {
     return response.json(db.create({name, email, password}))
 })
 
+app.put("/pokemon/:id", (request, response) => {
+    const id = request.params
+    const {name, email, password} = request.body
+    
+    return response.json(db.updateById(id, {name, email, password}))
+})
+
 app.listen(3030, () => {
     console.log("Esse servidor está rodando em http://localhost:3030")
 })
