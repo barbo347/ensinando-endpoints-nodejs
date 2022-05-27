@@ -6,7 +6,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.get("/", (request, response) => {
-    response.json({ message: "ola mundo" })
+    response.json({ message: db.findAll() })
 })
 
 app.get("/usuario", (request, response) => {
@@ -18,9 +18,9 @@ app.get("/pokemon", (request, response) => {
 })
 
 app.post("/pokemon", (request, response) => {
-    const body = request.body
-    console.log(body)
-    response.json({ message: "foi adicionado um novo pokemon" })
+    const {name, email, password} = request.body
+    
+    return response.json(db.create({name, email, password}))
 })
 
 app.listen(3030, () => {
