@@ -1,4 +1,5 @@
 const express = require("express")
+const { remove } = require("./db")
 const app = express()
 const db = require("./db")
 
@@ -10,7 +11,8 @@ app.get("/", (request, response) => {
 })
 
 app.get("/usuario/:id", (request, response) => {
-    return response.json({ user: db.findById(request.params.id) })
+    const id = request.params.id
+    return response.json({ user: db.findById(id) })
 })
 
 /*app.get("/usuario/:id", (request, response) => {
@@ -24,10 +26,15 @@ app.post("/usuario", (request, response) => {
 })
 
 app.put("/usuario/:id", (request, response) => {
-    const id = request.params
+    const id = request.params.id
     const {name, email, password} = request.body
     
     return response.json(db.updateById(id, {name, email, password}))
+})
+
+app.delete("/usuario/:id", (request, response) => {
+    const id = request.params.id
+    return response.json({ message: db.remove(id) })
 })
 
 app.listen(3030, () => {
