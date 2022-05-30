@@ -9,13 +9,13 @@ app.get("/", (request, response) => {
     response.json({ message: db.findAll() })
 })
 
-app.get("/usuario", (request, response) => {
-    response.json({ users: ["joao", "maria", "jose"] })
+app.get("/usuario/:id", (request, response) => {
+    return response.json({ users: db.findById(request.params.id) })
 })
 
-app.get("/usuario", (request, response) => {
+/*app.get("/usuario/:id", (request, response) => {
     response.json({ message: "charmander" })
-})
+})*/
 
 app.post("/usuario", (request, response) => {
     const {name, email, password} = request.body
