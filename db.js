@@ -7,8 +7,11 @@ const db = () => {
   
     return {
       findById: id => {
+        console.log(id)
         const user = database.find(user => user?.id === parseInt(id))
+        console.log({user})
         return user !== 0 ? user : { message: 'informacao nao encontrada' }
+        
       },
       findAll: () => database,
       create: user => {

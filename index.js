@@ -10,7 +10,7 @@ app.get("/", (request, response) => {
 })
 
 app.get("/usuario/:id", (request, response) => {
-    return response.json({ users: db.findById(request.params.id) })
+    return response.json({ user: db.findById(request.params.id) })
 })
 
 /*app.get("/usuario/:id", (request, response) => {
