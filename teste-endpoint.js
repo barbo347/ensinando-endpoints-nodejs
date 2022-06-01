@@ -25,4 +25,9 @@ app.put("/usuario/:id", (request, response) => {
     return response.json(importandoDB.updateById(id, {name, email, password}))
 })
 
+app.delete("/usuario/:id", (request, response) => {
+    const id = request.params.id
+    return response.json({message: importandoDB.remove(id)})
+})
+
 app.listen(3000, () => console.log("Esse servidor está rodando em http://localhost:3000/"))
