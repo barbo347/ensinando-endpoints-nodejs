@@ -8,6 +8,19 @@ app.use(express.urlencoded({ extended: true }))
 app.get("/getUsers", (req, res) => res.json(db.findAll()))
 app.get("/getById/:id", (req, res) => res.json(db.findById(req.params.id)))
 
+app.post("/createdUsers", (req, res)=>{
+  const {name, email, password} = req.body
+  try{
+    db.create({
+      name,
+      email,
+      password
+    })
+   return res.json({message: "Usuario cadastrado com sucesso"})
+  }catch{
+    return res.json({error: "Ops algo deu errado"})
+  }
+})
 // Exercicio de CRUD
 // Utilizando as 5 funções encontradas em db, crie 5 endpoints para o recurso "usuario".
 // (Leia em README para saber mais sobre as funções)
