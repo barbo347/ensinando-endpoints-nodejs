@@ -4,13 +4,14 @@ const db = require("../db");
 
 const { verifyIfExistsEmail,
   verifyEmail
-} = require("../controllers/email")
+} = require("../controllers/email/index");
+const { verifyPassword } = require("../controllers/passwords/index");
 
 routes.get("/users/All", (req, res) => res.json(db.findAll()));
 
 routes.get("/users/:id", (req, res) => res.json(db.findById(req.params.id)));
 
-routes.post("/users/create", verifyEmail, verifyIfExistsEmail,
+routes.post("/users/create", verifyEmail, verifyIfExistsEmail, verifyPassword,
   (req, res) => {
     const { name, email, password } = req.body;
     try {
