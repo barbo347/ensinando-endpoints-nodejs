@@ -21,6 +21,21 @@ app.post("/createdUsers", (req, res)=>{
     return res.json({error: "Ops algo deu errado"})
   }
 })
+
+app.put("/updateById/:id", (req, res)=>{
+  const {name, email, password} = req.body;
+  const id = req.params.id;
+  try{
+    db.updateById(id,{
+      name,
+      email,
+      password
+    })
+   return res.json({message: "Usuario atualizado com sucesso"})
+  }catch{
+    return res.json({error: "Ops algo deu errado"})
+  }
+})
 // Exercicio de CRUD
 // Utilizando as 5 funções encontradas em db, crie 5 endpoints para o recurso "usuario".
 // (Leia em README para saber mais sobre as funções)
