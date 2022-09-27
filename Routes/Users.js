@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const routes = Router();
 const db = require("../db");
-
 const { verifyIfExistsEmail,
   verifyEmail
 } = require("../controllers/email/index");
@@ -26,7 +25,7 @@ routes.post("/users/create", verifyEmail, verifyIfExistsEmail, verifyPassword,
     }
   });
 
-routes.put("/users/update/:id", (req, res) => {
+routes.put("/users/update/:id", verifyPassword, verifyEmail,(req, res) => {
   const { name, email, password } = req.body;
   const id = req.params.id;
   try {
