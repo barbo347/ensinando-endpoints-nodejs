@@ -2,25 +2,30 @@ const { Router } = require("express");
 const routes = Router();
 const db = require("../db");
 
-routes.get("/Users/All", (req, res) => res.json(db.findAll()));
+const { verifyIfExistsEmail,
+  verifyEmail
+} = require("../controllers/email")
 
-routes.get("/Users/:id", (req, res) => res.json(db.findById(req.params.id)));
+routes.get("/users/All", (req, res) => res.json(db.findAll()));
 
-routes.post("/Users/Create", (req, res) => {
-  const { name, email, password } = req.body;
-  try {
-    const response = db.create({
-      name,
-      email,
-      password,
-    });
-    return res.json(response);
-  } catch {
-    return res.json({ error: "Ops algo deu errado" });
-  }
-});
+routes.get("/users/:id", (req, res) => res.json(db.findById(req.params.id)));
 
-routes.put("/Users/Update/:id", (req, res) => {
+routes.post("/users/create", verifyEmail, verifyIfExistsEmail,
+  (req, res) => {
+    const { name, email, password } = req.body;
+    try {
+      const response = db.create({
+        name,
+        email,
+        password,
+      });
+      return res.json(response);
+    } catch {
+      return res.json({ error: "Ops algo deu errado" });
+    }
+  });
+
+routes.put("/users/update/:id", (req, res) => {
   const { name, email, password } = req.body;
   const id = req.params.id;
   try {
@@ -35,7 +40,7 @@ routes.put("/Users/Update/:id", (req, res) => {
   }
 });
 
-routes.delete("/Users/Delete/:id", (req, res) => {
+routes.delete("/users/delete/:id", (req, res) => {
   const id = req.params.id;
   try {
     const response = db.remove(id);
@@ -44,5 +49,6 @@ routes.delete("/Users/Delete/:id", (req, res) => {
     return res.json({ error: "Ops algo deu errado" });
   }
 });
+
 
 module.exports = routes;
