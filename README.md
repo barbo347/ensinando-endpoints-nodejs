@@ -1,13 +1,18 @@
-# rodando a aplicação
+# Rodando a aplicação
 
 1 - Instalando as dependencias do projeto
 
 ```bash
-cd ensinando-endpoints
 npm install
+npm install ts-node -g
+npm install express -g
 ```
 
-2 - Iniciando a aplicação
+2 - Recomendação
+
+Copiar a base do `index.ts` que já está configurada
+
+3 - Iniciando a aplicação
 
 ```bash
 npm start
@@ -78,6 +83,6 @@ Para remover apenas um elemento de acordo com o seu `ID` você pode utilizar a f
 
 ```javascript
 const id = 1
-const removedItem = db.removeById(id)
+const removedItem = db.remove(id)
 console.log(removedItem)
 ```
